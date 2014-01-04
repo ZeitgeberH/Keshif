@@ -34,6 +34,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  .kshfHost{
     border: solid 1px lightgray;
+    background-color: white;
 }
 .kshfHost:hover{
     box-shadow: 0px 0px 4px gray;
@@ -51,10 +52,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 
-.kshf div.leftBlockAdjustSize{
-    position: absolute;
+.kshf span.leftBlockAdjustSize{
+    position: relative;
+    float:right;
+    right: -3px;
     width:6px;
-    margin-left: -10px;
     border-bottom: solid 1px lightgray;
     border-top: solid 1px lightgray;
 /*    
@@ -88,7 +90,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         rgba(230, 230, 230, 1) 60%, 
         rgba(230, 230, 230, 0) 100%);
 }
-.kshf div.leftBlockAdjustSize:hover{
+.kshf span.leftBlockAdjustSize:hover{
 /*    background-color: rgba(155, 151, 133, 0.2);
     border: dashed 1px rgb(187, 172, 123);*/
     border-bottom: solid 1px gray;
@@ -209,6 +211,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     float: left;
     pointer-events: all;
 }
+.kshf .headerGroup span.rightHeader{
+    display:inline-block;
+    float:right;
+    pointer-events:all;
+}
 .kshf .headerGroup span.showFilterText{
     display: inline-block;
     float: left;
@@ -222,6 +229,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     float:right;
     cursor: default;
     font-variant: small-caps;
+    pointer-events: none;
 }
 
 .kshf .headerGroup span.rightHeader span.header_label {
@@ -231,22 +239,54 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     cursor: pointer;
 }
 
-.kshf .kshfChart .headerGroup span.header_label_arrow{
-    font-size: 0.9em;
+.kshf .kshfChart .headerGroup svg.settingButton{
     display: none;
     float: left;
-    padding-left: 3px;
+    margin-top: 3px;
+    cursor: pointer;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    margin-left: 2px;
+}
+.kshf .headerGroup svg.settingButton{ 
+    height: 15px;
+    width: 12px;
+}
+.kshf .kshfChart[collapsed=false][showconfig=true] .headerGroup  svg.settingButton{
+    display: block;
+    fill: black;
+    background: #E2E2E2;
+}
+.kshf .kshfChart[showconfig=false] .headerGroup svg.settingButton{ 
+    fill: gray;
+}
+.kshf .kshfChart:hover[collapsed=false] .headerGroup svg.settingButton{
+    display: block;
+}
+.kshf .kshfChart .headerGroup svg.settingButton:hover{
+    fill:#cb5454;
+    -webkit-transition: fill 250ms linear;
+    -moz-transition: fill 250ms linear;
+    -o-transition: fill 250ms linear;
+    -ms-transition: fill 250ms linear;
+    transition: fill 250ms linear;
+}
+.kshf .kshfChart .headerGroup span.header_label_arrow{
+    font-size: 0.8em;
+    float: left;
+    display: none;
     cursor: pointer;
     vertical-align: baseline;
     line-height: 18px;
+    width: 13px;
+    height:18px;
+    transition: all 250ms linear;
 }
-.kshf .kshfChart:hover .headerGroup span.header_label_arrow{
+.kshf .kshfChart .headerGroup span.header_label_none{
     display: block;
 }
-.kshf .headerGroup span.rightHeader{
-    display:inline-block;
-    float:right;
-    pointer-events:all;
+.kshf .kshfChart .headerGroup span.header_label_arrow:hover{
+    color:#cb5454;
 }
 .kshf div.kshfChart[collapsed=true] .headerGroup {
     color: gray;
@@ -254,26 +294,27 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .kshf div.kshfChart[collapsedTime=true] .headerGroup span.rightHeader{
     color: gray;
 }
+
+.kshf .kshfChart .headerGroup span.header_label_none{
+    display: block;
+}
+.kshf .kshfChart[collapsed=true] .headerGroup span.header_label_none{
+    display: none;
+}
+.kshf .kshfChart[collapsed=true] .headerGroup span.header_label_down{
+    display: block;
+}
+.kshf .kshfChart[collapsed=false]:hover .headerGroup span.header_label_none{
+    display: none;
+}
+.kshf .kshfChart[collapsed=false]:hover .headerGroup span.header_label_up{
+    display: block;
+}
 .kshf .headerGroup span.rightHeader span.header_label_arrow{
     float: right;
 }
-.kshf .kshfChart[collapsed=true] .headerGroup span.header_label_arrow{
+.kshf div.kshfChart[collapsedTime=true][collapsed=false] .headerGroup span.rightHeader span.header_label_down{
     display: block;
-}
-.kshf div.kshfChart[collapsed=true] .headerGroup span.leftHeader span.header_label_up{
-    display: none;
-}
-.kshf div.kshfChart[collapsed=false] .headerGroup span.leftHeader span.header_label_down{
-    display: none;
-}
-.kshf div.kshfChart[collapsedTime=true][collapsed=false] .headerGroup span.rightHeader span.header_label_up{
-    display: none;
-}
-.kshf div.kshfChart[collapsedTime=false][collapsed=false] .headerGroup span.rightHeader span.header_label_down{
-    display: none;
-}
-.kshf div.kshfChart[collapsed=true] .headerGroup span.rightHeader span.header_label_up{
-    display: none;
 }
 
 
@@ -325,6 +366,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 .kshf g.scrollGroup g:hover path.top_arrow{
 	fill: #cb5454;
+    -webkit-transition: fill 200ms linear;
+    -moz-transition: fill 200ms linear;
+    -o-transition: fill 200ms linear;
+    -ms-transition: fill 200ms linear;
+    transition: fill 200ms linear;
 }
 
 .kshf g.scrollGroup rect.background{
@@ -335,6 +381,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 .kshf g.scrollGroup:hover rect.background{
 	stroke:gray;
+    -webkit-transition: stroke 200ms linear;
+    -moz-transition: stroke 200ms linear;
+    -o-transition: stroke 200ms linear;
+    -ms-transition: stroke 200ms linear;
+    transition: stroke 200ms linear;
 }
 .kshf g.scrollGroup rect.background_fill{
     opacity: 1;
@@ -443,10 +494,20 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .kshf .timeDot[display=true]:hover {
 	stroke: orangered !important;
 	stroke-width:2;
+    -webkit-transition: stroke 100ms linear;
+    -moz-transition: stroke 100ms linear;
+    -o-transition: stroke 100ms linear;
+    -ms-transition: stroke 100ms linear;
+    transition: stroke 100ms linear;
 }
 .kshf .timeDot[highlight=true] {
     stroke: #c32c2c !important;
     stroke-width:2;
+    -webkit-transition: stroke 200ms linear;
+    -moz-transition: stroke 200ms linear;
+    -o-transition: stroke 200ms linear;
+    -ms-transition: stroke 200ms linear;
+    transition: stroke 200ms linear;
 }
 
 .kshf div.kshfChart[collapsed=true] g.barGroup_Top {
@@ -458,7 +519,49 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .kshf div.kshfChart[collapsedTime=true] g.timeAxisGroup {
     display:none;
 }
-.kshf div.kshfChart span.sortOptionSelect_Label{
+
+.kshf span.chooseConfigGroup{
+    float:left;
+    width:25px;
+}
+
+.kshf .chooseConfigGroup svg{
+    margin: 1px;
+}
+.kshf .chooseConfigGroup circle{
+    fill: lightgray;
+    cursor: pointer;
+    stroke: black;
+    stroke-width: 1;
+}
+.kshf .chooseConfigGroup circle:hover{
+    fill:#cb5454 !important;
+    -webkit-transition: fill 250ms linear;
+    -moz-transition: fill 250ms linear;
+    -o-transition: fill 250ms linear;
+    -ms-transition: fill 250ms linear;
+    transition: fill 250ms linear;
+}
+
+.kshf .configGroup{
+    background-color: rgb(226, 226, 226);
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5)
+}
+
+.kshf .kshfChart[collapsed=true] .configGroup{
+    display: none;
+}
+
+.kshf .configGroup[shown=order] .chooseConfigGroup circle.order{
+    fill: gray;
+}
+.kshf .configGroup[shown=filter] .chooseConfigGroup circle.filter{
+    fill: gray;
+}
+
+.kshf .kshfChart div.configGroup{ display:none; }
+.kshf .kshfChart[showconfig=true]  div.configGroup{ display:block; }
+.kshf .kshfChart span.optionSelect_Label{
     float: right;
     font-size: 0.7em;
     font-weight: 500;
@@ -466,18 +569,31 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     cursor: default;
     pointer-events:none;
 }
-.kshf div.kshfChart[collapsed=true] span.sortOptionSelect_Label {
-    display:none;
-}
-.kshf div.kshfChart select.sortOptionSelect{
+.kshf div.kshfChart select.optionSelect{
     float:right;
     font-size:0.7em;
     pointer-events:all;
     clear:right;
     margin:0px;
 }
+
+.kshf .kshfChart span.sortOptionSelectGroup{ 
+    display:none;
+    float:right;
+}
+.kshf .configGroup[shown=order] span.sortOptionSelectGroup{ 
+    display:block;
+}
 .kshf div.kshfChart[collapsed=true] select.sortOptionSelect{
     display: none;
+}
+
+.kshf .kshfChart span.filterOptionSelectGroup{ 
+    display:none;
+    float:right;
+}
+.kshf .configGroup[shown=filter] span.filterOptionSelectGroup{ 
+    display:block;
 }
 
 .kshf div.listDiv select.listSortOptionSelect{
@@ -510,19 +626,37 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 .kshf g.row rect.total {
     fill-opacity:0.2;
+    stroke: white;
+    stroke-width: 0;
+    -webkit-transition: all 150ms linear;
+    -moz-transition: all 150ms linear;
+    -o-transition: all 150ms linear;
+    -ms-transition: all 150ms linear;
+    transition: all 150ms linear;
 }
 .kshf g.row g[highlight=true] rect.total{
-    stroke-width: 2;
-    stroke: orangered;
     cursor: pointer;
 }
-.kshf g.row rect.active {
+.kshf g.row g[highlight=true] rect.active{
     pointer-events: none;
+    stroke: orangered;
+    stroke-width: 2;
+    -webkit-transition: all 150ms linear;
+    -moz-transition: all 150ms linear;
+    -o-transition: all 150ms linear;
+    -ms-transition: all 150ms linear;
+    transition: all 150ms linear;
+}
+.kshf g.row rect.active {
+/*    pointer-events: none; */
 }
 .kshf g.row rect.rowBar {
     fill: #8699A8;
 }
 
+.kshf g.row[noitems=true] text{
+    fill:gray;
+}
 .kshf g.row g[highlight=false] text.item_count {
     font-size: 0.7em;
     cursor: default;
@@ -546,18 +680,25 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .kshfHost[kb_modifier=true] .kshf g.row g[highlight=true] text.row_label {
     cursor: cell;
 }
-.kshf div.kshfChart[filtered_row=true] g.row[selected=false] text{
-    fill:gray;
-}
 .kshf div.kshfChart[filtered_row=true] g.row[selected=true] text{
     font-weight: 700;
     fill: #c32c2c;
 }
 .kshf g.row g[highlight=true] text{
     fill: orangered !important;
+    -webkit-transition: fill 100ms linear;
+    -moz-transition: fill 100ms linear;
+    -o-transition: fill 100ms linear;
+    -ms-transition: fill 100ms linear;
+    transition: fill 100ms linear;
 }
 .kshf g.row[itemhighlight=true] g text{
     fill: #c32c2c !important;
+    -webkit-transition: fill 100ms linear;
+    -moz-transition: fill 100ms linear;
+    -o-transition: fill 100ms linear;
+    -ms-transition: fill 100ms linear;
+    transition: fill 100ms linear;
 }
 
 .kshf g.row rect.timeBar {
@@ -624,6 +765,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 .kshf g.resort_button:hover path{
 	fill:#cb5454;
+    -webkit-transition: fill 250ms linear;
+    -moz-transition: fill 250ms linear;
+    -o-transition: fill 250ms linear;
+    -ms-transition: fill 250ms linear;
+    transition: fill 250ms linear;
 }
 
 .kshf g.row line.row_bar_line{
@@ -639,6 +785,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .kshf line.selectVertLine {
     stroke: #EEDDDE;
     stroke-width: 2;
+    display:none;
 }
 
 .kshf g.top_arrow{
@@ -649,21 +796,27 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     cursor: pointer;
 }
 
-.kshf div.barChartMainInfo{
-    position: absolute;
+.kshf span.barChartMainInfo{
     font-size: 0.8em;
     color: gray;
     cursor: default;
+    font-size:0.7em;
+    width:100px;
+    position:relative;
+    top:-3px;
+    padding-left: 10px;
+}
+.kshfHost[hideBarAxis=true] .kshf span.barChartMainInfo{
     display:none;
 }
-.kshf div.barChartMainInfo .refreshbarscales{
+.kshf span.barChartMainInfo .refreshbarscales{
     cursor:pointer;
     display: none;
 }
-.kshf div.barChartMainInfo .refreshbarscales:hover{
+.kshf span.barChartMainInfo .refreshbarscales:hover{
     color:#cb5454;
 }
-.kshfHost[hidebars=true] .kshf div.barChartMainInfo{
+.kshfHost[hidebars=true] .kshf span.barChartMainInfo{
     display:none;
 }
 
@@ -681,6 +834,7 @@ div.kshf.layout_header{
     font-weight: 700;
     font-size: 1.05em;
     text-shadow: 1px 1px 2px white;
+    float:none;
 
     text-align: center;
     background-image: linear-gradient(left , rgb(255,255,255) 23%, rgb(224,213,170) 40%, rgb(224,213,170) 60%, rgb(255,255,255) 91%);
@@ -693,13 +847,17 @@ div.kshf.layout_header{
 }
 div.kshf.layout_top{
     display:block;
+    position:absolute;
 }
 div.kshf.layout_left{
-    clear:left; 
+    clear:left;
+    position: absolute;
+    left:0px;
 }
 div.kshf.layout_left_background{
     position: absolute;
     min-height: 100%;
+    height: 2000px;
     left: 0px;
     background-image: linear-gradient(right, 
         rgba(243, 243, 243, 0) 0%, 
@@ -721,30 +879,30 @@ div.kshf.layout_left_background{
         rgba(243, 243, 243, 1) 5%, 
         rgba(243, 243, 243, 1) 60%, 
         rgba(243, 243, 243, 0) 100%);
-    z-index: -20;
+    pointer-events: none;
 }
 .kshf.layout_left_header{
     position:absolute;
     left:0px;
     top:0px;
+    z-index: 10;
 }
 .kshf.layout_left_header div.filter_header{
-    position: relative;
     background-color: rgba(125,125,125,0.15);
-/*    border-bottom: solid 1px gray; */
-    box-shadow: 0px 0px 2px 1px lightgray;
+    border-bottom: solid 1px gray;
+    box-shadow: 0px 0px 2px 1px gray;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin-left:2px;
 }
 
 .kshf.layout_left_header span.filters_text{
-    margin-left: 5px;
     position: relative;
-    top:-3px;
-    float:left;
-    font-size: 1.2em;
+    float: right;
+    font-size: 0.9em;
     font-weight: 700;
-    font-variant: small-caps;
     font-style: normal;
-    text-decoration: underline;
+    cursor: default;
 }
 div.kshf.layout_right{
     position:relative;
@@ -783,8 +941,21 @@ div.listItem:nth-child(even) {
     background-color:#f5f5f5;
 }
 */
-div.listItem:hover{
+div.listItem[highlight=true]{
     background-color:#EEEEEE;
+    -webkit-transition: background-color 100ms linear;
+    -moz-transition: background-color 100ms linear;
+    -o-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+}
+div.listItem[highlight=false]{
+    background-color:white;
+    -webkit-transition: background-color 100ms linear;
+    -moz-transition: background-color 100ms linear;
+    -o-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
 }
 
 
@@ -976,25 +1147,25 @@ div.listHeader span.filter_reset {
 }
 
 .kshf span.filter-block-clear{
-    background-color: rgba(228, 223, 212, 0.7) !important;
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 15px;
     display: none;
-    cursor:pointer;
+    cursor:default;
     color: rgb(37, 33, 18);
     font-weight: 300;
     border: 1px rgb(104, 91, 43) solid;
     box-shadow: 1px 1px 1px rgb(78, 71, 43);
-    background-color: rgba(238, 235, 224,0.1);
-    padding: 0px 0px 0px 2px;
+    background-color: white;
+    padding: 0px 3px 0px 0px;
     height:14px;
-    float:right;
+    float: left;
     border-radius:7px;
-    margin-right: 5px;
+    margin-right: 2px;
 }
 .kshf span.filter-block-clear:hover{
     box-shadow: inset 1px 1px 1px #474940;
 }
-div.listHeader span.filter_reset:hover{
+.kshf div.listHeader span.filter_reset:hover{
     box-shadow: inset 1px 1px 1px rgb(78, 71, 43);
     font-weight:500;
 }
@@ -1002,10 +1173,10 @@ div.listHeader span.filter_reset:hover{
 
 
 
-div.listHeader span.bigTextSearch_wrap {
+.kshf div.listHeader span.bigTextSearch_wrap {
     position: relative;
 }
-div.listHeader span.bigTextSearch_wrap span {
+.kshf div.listHeader span.bigTextSearch_wrap span {
     position: absolute;
     display: none;
     top: 3px;
@@ -1015,10 +1186,10 @@ div.listHeader span.bigTextSearch_wrap span {
     background: url('http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=4') 0 -690px;
     cursor: pointer;
 }
-div.listHeader span.bigTextSearch_wrap span:hover {
+.kshf div.listHeader span.bigTextSearch_wrap span:hover {
     background: url('http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=4') 0 -665px;
 }
-div.listHeader input.bigTextSearch{
+.kshf div.listHeader input.bigTextSearch{
     font-size: 0.8em;
     font-weight: 700;
     color: #cb5454;
@@ -1028,19 +1199,23 @@ div.listHeader input.bigTextSearch{
     border-width:0px;
     border-bottom: dashed 1px #cb5454;
 }
-div.listHeader input.bigTextSearch:focus{
+.kshf div.listHeader input.bigTextSearch:focus{
     outline-color: gray;
     outline-width: 4px;
 }
-div.listHeader input.bigTextSearch:hover{
+.kshf div.listHeader input.bigTextSearch:hover{
     border: solid 1px #cb5454;
     background-color: white;
     padding: 0px 0px 1px 0px;
 }
-.kshf div.listHeader ::-webkit-input-placeholder { 
+.kshf div.listHeader input.bigTextSearch::-webkit-input-placeholder { 
     color: #cb5454;
     font-weight: 300;
 }
+.kshf div.listHeader input.bigTextSearch:focus::-webkit-input-placeholder { 
+    color: #F3CDCD;
+}
+
 
 
 
@@ -1136,7 +1311,8 @@ div.chartInfo{
 img.datasource{
     height:14px;
     cursor:pointer;
-    float:right;
+    float:left;
+    margin-right: 3px;
  	box-shadow: 1px 1px 1px #474940;
     border: solid 1px black;
     background-color:white;
@@ -1158,8 +1334,7 @@ div.credits{
 	background-color: white;
 	color: black;
 	position: relative;
-	margin-left: 4px;
-	margin-right: 12px;
+	margin:2px;
     float:right;
     font-weight: bolder;
     font-style:italic;
@@ -1193,7 +1368,7 @@ div.credits:hover{
     box-shadow: 1px 1px 1px #474940;
     text-align: center;
     font-size: 0.7em;
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(228, 226, 222);
     color: black;
     display: none;
     border: solid 1px gray;
@@ -1206,15 +1381,15 @@ div.credits:hover{
 }
 .kshf div.chartClearFilterButton.rowFilter{
     float: right;
-    margin: 1px 5px 0px 0px;
+    margin: 1px 3px 0px 0px;
 }
 .kshf div.chartClearFilterButton.rangeFilter{
     float: right;
-    margin: 1px 5px 0px 0px;
+    margin: 1px 3px 0px 0px;
 }
 .kshf div.chartClearFilterButton.timeFilter{
     float: left;
-    margin: 1px 0px 0px 5px;
+    margin: 1px 0px 0px 3px;
 }
 .kshf div.kshfChart[filtered_row=true] div.chartClearFilterButton.rowFilter{
     display:inline-block;
@@ -1226,18 +1401,19 @@ div.credits:hover{
     display:inline-block;
 }
 .kshf div.chartClearFilterButton.allFilter{
+    cursor: pointer;
     display: inline-block;
-    float: right;
-    margin-left: 2px;
+    float: left;
     font-size: 11px;
-    pointer-events: none;
     position: relative;
     height: 14px;
     border: solid 0px white;
     border-left: solid 1px gray;
     border-radius:7px;
+    line-height: 13px;
+    left:-2px;
 }
-.kshf span.filter-block-clear:hover div.chartClearFilterButton.allFilter{
+.kshf div.chartClearFilterButton.allFilter:hover{
     font-weight:700;
     box-shadow: inset 1px 1px 1px #474940;
     color: #cb5454;
@@ -1449,6 +1625,20 @@ div.listColumnRow div.listcell{
 .kshf .ui-rangeSlider .ui-ruler-tick{
 }
 
+.kshf.layout_resize{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    cursor: nwse-resize;
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid lightgray;
+    border-top: 16px solid transparent;
+}
+.kshf.layout_resize:hover{
+    border-right: 16px solid gray;
+}
 
 
 .kshf.layout_infobox div.infobox_background{
@@ -1594,10 +1784,3 @@ div.boxinbox.project_credits{
 }
 
 
-
-/* Mozilla customization */
-@-moz-document url-prefix() {
-    .kshf.layout_left_header span.filters_text{
-        top:0px;
-    }
-}
