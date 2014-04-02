@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Nobel Prize Winners</title>
-        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="../jquery/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="../d3.v3/d3.v3.js" charset="utf-8"></script>
         <script type="text/javascript" src="../keshif.js" charset="utf-8"></script>
@@ -24,18 +24,7 @@ function getGender(v){
     }
 }
 
-function resetSize(){
-    $('#nobelDiv').height($(window).height()-10);
-    $('#nobelDiv').width (1000);
-}
-
 $(document).ready( function(){
-    resetSize();
-    $(window).resize(function() {
-        resetSize();
-        kshf.updateLayout();
-    });
-
     var prizeCols;
     var lautCols;
 
@@ -167,8 +156,12 @@ $(document).ready( function(){
 </script>
         <style>
             div.listItem{ padding-bottom: 2 px; }
-            #nobelDiv { margin: 0 auto; }
-            body{ margin:2px; }
+            #nobelDiv { margin: 0 auto; height: 750px; width:950px; }
+            html, body {
+                width: 100%;
+                height: 100%;
+                min-height: 100%;
+            }
         </style>
 	</head>
 	<body onmousemove="logIf.setSessionID()"><div id="nobelDiv"></div></body>

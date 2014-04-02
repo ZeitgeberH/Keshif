@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Keshif Tracker Results</title>
-        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="../jquery/jquery-1.9.1.min.js"></script>
         <script type="text/javascript" src="../d3.v3/d3.v3.js" charset="utf-8"></script>
         <script type="text/javascript" src="../keshif.js" charset="utf-8"></script>
@@ -14,13 +14,16 @@
 $(document).ready( function(){
     var cols;
 
+
+
 	kshf.init({
         chartTitle: "KeshifTrackerData",
         domID : "#chart_div4",
         dirRoot: "../",
         categoryTextWidth:180,
         source : {
-            gdocId : '0Ai6LdDWgaqgNdFJvMmIyLUZPZWkzZG1KanlaQm1odXc',
+            // old: 0Ai6LdDWgaqgNdFJvMmIyLUZPZWkzZG1KanlaQm1odXc
+            gdocId : '0Ai6LdDWgaqgNdE1IU3pQdGJsODJTa05zbThtZFhha3c',
             sheets : [ {name:"FilterMessages"} ]
         },
         loadedCb: function(){
@@ -28,32 +31,11 @@ $(document).ready( function(){
         },
         charts: [
             {
-                facetTitle: "Demo",
-                catItemMap : function(f){ 
-                    switch(f.data[cols['demoID']]){
-                    case 1:  return '1';
-                    case 2:  return '2';
-                    case 3:  return '3';
-                    case 4:  return '4';
-                    case 5:  return '5';
-                    case 6:  return 'Publictns (Bederson-Home)';
-                    case 7:  return 'Publictns (Bederson)';
-                    case 8:  return 'TimeMaxHandle';
-                    case 9:  return 'TimeDragRange';
-                    case 10: return 'Best Selling Singles';
-                    case 11: return 'Dr. Who';
-                    case 12: return 'Flags';
-                    case 13: return 'Infosthestics';
-                    case 14: return 'Nobel';
-                    case 15: return 'Oil Spills';
-                    case 13: return 'Infosthestics';
-                    }
-                    return '???';
-                }
-            },{ facetTitle: "Facet",
-                catDispCountFix: 5,
-                catItemMap : function(f){ return f.data[cols['facet']]; }
-            },{ facetTitle: "Action",
+                timeTitle: "Time",
+                timeItemMap: function(f){ 
+                    return new Date(f.data[cols['ts']]*900+1388088936864);
+                },
+                facetTitle: "Action",
                 catDispCountFix: 5,
                 catItemMap : function(f){ 
                     switch(f.data[cols['actID']]){
@@ -73,6 +55,33 @@ $(document).ready( function(){
                     }
                     return '???';
                 }
+            },{ facetTitle: "Facet",
+                catDispCountFix: 5,
+                catItemMap : function(f){ return f.data[cols['facet']]; }
+            },{ 
+                facetTitle: "Demo",
+                catItemMap : function(f){ 
+                    switch(f.data[cols['demoID']]){
+                    case 1:  return '1';
+                    case 2:  return '2';
+                    case 3:  return '3';
+                    case 4:  return '4';
+                    case 5:  return '5';
+                    case 6:  return 'Publictns (Bederson-Home)';
+                    case 7:  return 'Publictns (Bederson)';
+                    default: return "Other";
+/*                    case 8:  return 'TimeMaxHandle';
+                    case 9:  return 'TimeDragRange';
+                    case 10: return 'Best Selling Singles';
+                    case 11: return 'Dr. Who';
+                    case 12: return 'Flags';
+                    case 13: return 'Infosthestics';
+                    case 14: return 'Nobel';
+                    case 15: return 'Oil Spills';
+                    case 13: return 'Infosthestics';*/
+                    }
+                    return '???';
+                }
             },{ facetTitle: "Item Info",
                 catDispCountFix: 5,
                 catItemMap : function(f){ return f.data[cols['itemInfo']]; }
@@ -80,7 +89,9 @@ $(document).ready( function(){
                 catDispCountFix: 3,
             },{
                 facetTitle: "Time Filter Active",
-                catItemMap : function(f){ return f.data[cols['timeFltr']]; },
+                catItemMap : function(f){ 
+                    return f.data[cols['timeFltr']];
+                },
                 sortingFuncs: [{
                     no_resort: true,
                     func: kshf.sortFunc_Column_ParseInt_Incr
@@ -119,8 +130,11 @@ $(document).ready( function(){
                     return nums2.length;
                 },
                 sortingFuncs: [{
+                    name:"numeric",
                     no_resort: true,
                     func: kshf.sortFunc_Column_ParseInt_Incr
+                },{
+                    name:"By freq."
                 }]
             },{
                 facetTitle: "TimeDif (sec)",
@@ -128,12 +142,22 @@ $(document).ready( function(){
                     var tsec= Math.floor(f.data[cols['ts']]/1000);
                     var tsec_approx = Math.floor(tsec/10)*10;
                     return tsec_approx+"-"+(tsec_approx+9);
-                }
+                },
+                sortingFuncs: [{
+                    name:"numeric",
+                    no_resort: true,
+                    func: kshf.sortFunc_Column_ParseInt_Incr
+                },{
+                    name:"By freq."
+                }]
             },{
                 facetTitle: "results",
                 sortingFuncs: [{
+                    name:"numeric",
                     no_resort: true,
                     func: kshf.sortFunc_Column_ParseInt_Incr
+                },{
+                    name:"By freq."
                 }]
             }
         ],
